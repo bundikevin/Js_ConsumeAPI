@@ -2,14 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>title</title>
+    <title>ISS Data</title>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
   
   <div id="usersContainer">
-    <h3>Users</h3>
+    <h3>ISS Data</h3>
+    <p>
     
+    Latitude:  <span id="lat"></span><br/>
+    Longitude: <span id="long"></span><br />
+    
+    </p>
   </div>
     <button id="button" type="button">Get Fact</button>
     <p id="setup"></p>
@@ -21,6 +26,24 @@
     
     <script>
       listsUsers('usersContainer');
+    </script>
+    
+    <script>
+    
+      const api_url = "https://api.wheretheiss.at/v1/satellites/25544/";
+      
+      async function getISS() {
+        const response = await fetch(api_url);
+        const data = await response.json();
+        const {longitude, latitude} = data;
+        //console.log(data.latitude);
+        //>console.log(data.longitude);
+        document.getElementById('lat').textContent = latitude;
+        document.getElementById('long').textContent = longitude;
+      }
+      
+      getISS();
+      
     </script>
     
   </body>
